@@ -1,33 +1,26 @@
 //Author: Joanna Jacob
 // version 5.0
 
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Scanner;
-import java.util.Stack;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args){
-        Scanner input = new Scanner(System.in);
+        String str = "racecar";
         boolean result = true;
+        Deque<Character> charDeque = new LinkedList<>();
 
-        System.out.println("Enter the String: ");
-        String real = input.nextLine();
-
-        Queue q = new LinkedList();
-        Stack st = new Stack();
-
-
-        for(int i=0; i<=real.length()-1; i++) {
-            q.add(real.charAt(i));
-            st.push(real.charAt(i));
+        for (int i = 0; i < str.length(); i++) {
+            charDeque.add(str.charAt(i));
         }
 
-        while(!st.isEmpty()) {
-            if (q.remove() != st.pop()) {
+        while (charDeque.size() > 1) {
+            Character first = charDeque.pollFirst();
+            Character last = charDeque.pollLast();
+            if (!first.equals(last)) {
                 result = false;
+                break;
             }
         }
-        System.out.println(real + " is a palindrome? " + result);
+        System.out.println(str + " is a palindrome? " + result);
     }
 }
