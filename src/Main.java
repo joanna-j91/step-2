@@ -1,23 +1,27 @@
 //Author: Joanna Jacob
-// version 4.0
-import java.util.Scanner;
-class Palindrome{
-    public static boolean checker(String s){
-        char[] string = s.toCharArray();
-        int low = 0, high = string.length-1;
-        while(low <= high){
-            if(string[low] != string[high]){
-                return false;
-            }
-            low++;
-            high--;
-        }
-        return true;
-    }
-}
+// version 5.0
+
+import java.util.Stack;
 
 public class Main {
     public static void main(String[] args){
-        System.out.println(Palindrome.checker("racecar"));
+        String input = "noon";
+        boolean result = true;
+
+        Stack <Character> charStack = new Stack<>();
+        char[] charArray = input.toCharArray();
+
+        int i =0;
+
+        for(char c:charArray){
+            charStack.push(c);
+        }
+        while(i < charArray.length){
+            if(charStack.pop() != charArray[i]) {
+                result = false;
+            }
+            i++;
+        }
+        System.out.println(input + " is a palindrome? " + result);
     }
 }
