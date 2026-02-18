@@ -1,27 +1,33 @@
 //Author: Joanna Jacob
 // version 5.0
 
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
 import java.util.Stack;
 
 public class Main {
     public static void main(String[] args){
-        String input = "noon";
+        Scanner input = new Scanner(System.in);
         boolean result = true;
 
-        Stack <Character> charStack = new Stack<>();
-        char[] charArray = input.toCharArray();
+        System.out.println("Enter the String: ");
+        String real = input.nextLine();
 
-        int i =0;
+        Queue q = new LinkedList();
+        Stack st = new Stack();
 
-        for(char c:charArray){
-            charStack.push(c);
+
+        for(int i=0; i<=real.length()-1; i++) {
+            q.add(real.charAt(i));
+            st.push(real.charAt(i));
         }
-        while(i < charArray.length){
-            if(charStack.pop() != charArray[i]) {
+
+        while(!st.isEmpty()) {
+            if (q.remove() != st.pop()) {
                 result = false;
             }
-            i++;
         }
-        System.out.println(input + " is a palindrome? " + result);
+        System.out.println(real + " is a palindrome? " + result);
     }
 }
