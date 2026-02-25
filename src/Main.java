@@ -1,26 +1,21 @@
 //Author: Joanna Jacob
-// version 8.0
+// version 9.0
 
 import java.util.*;
 
 public class Main {
-    public static boolean palindrome(String s){
-        LinkedList<Character> node = new LinkedList<>();
-
-        for(char c: s.toCharArray()){
-            node.add(c);
+    public static boolean javaPalindromeCheck(String s, int start, int end){
+        if(start >= end) {
+            return true;
         }
-
-        while(node.size() > 1){
-            if(node.removeFirst() != node.removeLast()){
-                return false;
-            }
+        if(s.charAt(start) == s.charAt(end)) {
+            return javaPalindromeCheck(s, start + 1, end - 1);
         }
-        return true;
+        return false;
     }
 
     public static void main(String[] args){
-        String input = "level";
-        System.out.println("Is palindrome? : " + palindrome(input));
+        String input = "madam";
+        System.out.println("Is Palindrome? : " + javaPalindromeCheck(input, 0, input.length() - 1));
     }
 }
