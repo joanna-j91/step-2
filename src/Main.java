@@ -1,26 +1,26 @@
 //Author: Joanna Jacob
-// version 5.0
+// version 8.0
 
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args){
-        String str = "racecar";
-        boolean result = true;
-        Deque<Character> charDeque = new LinkedList<>();
+    public static boolean palindrome(String s){
+        LinkedList<Character> node = new LinkedList<>();
 
-        for (int i = 0; i < str.length(); i++) {
-            charDeque.add(str.charAt(i));
+        for(char c: s.toCharArray()){
+            node.add(c);
         }
 
-        while (charDeque.size() > 1) {
-            Character first = charDeque.pollFirst();
-            Character last = charDeque.pollLast();
-            if (!first.equals(last)) {
-                result = false;
-                break;
+        while(node.size() > 1){
+            if(node.removeFirst() != node.removeLast()){
+                return false;
             }
         }
-        System.out.println(str + " is a palindrome? " + result);
+        return true;
+    }
+
+    public static void main(String[] args){
+        String input = "level";
+        System.out.println("Is palindrome? : " + palindrome(input));
     }
 }
