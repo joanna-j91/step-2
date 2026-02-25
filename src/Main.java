@@ -1,21 +1,26 @@
 //Author: Joanna Jacob
-// version 9.0
+// version 10.0
 
 import java.util.*;
 
 public class Main {
-    public static boolean javaPalindromeCheck(String s, int start, int end){
-        if(start >= end) {
-            return true;
+    public static boolean javaPalindromeCheck(String str) {
+        String cleanedStr = str.replaceAll("\\s", "").toLowerCase();
+        int left = 0;
+        int right = cleanedStr.length() - 1;
+        while (left < right) {
+            if (cleanedStr.charAt(left) != cleanedStr.charAt(right)) {
+                return false;
+            }
+            left++;
+            right--;
         }
-        if(s.charAt(start) == s.charAt(end)) {
-            return javaPalindromeCheck(s, start + 1, end - 1);
-        }
-        return false;
+
+        return true;
     }
 
     public static void main(String[] args){
-        String input = "madam";
-        System.out.println("Is Palindrome? : " + javaPalindromeCheck(input, 0, input.length() - 1));
+        String input = "A maN a pLan a CANal PANAma";
+        System.out.println("Is Palindrome? : " + javaPalindromeCheck(input));
     }
 }
