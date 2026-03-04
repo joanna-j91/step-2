@@ -1,29 +1,58 @@
 //Author: Joanna Jacob
-// version 11.0
+// version 12.0
 
 import java.util.*;
 
-class PalindromeChecker{
-    public boolean PalindromeCheck(String str) {
-        String cleanedStr = str.replaceAll("\\s", "").toLowerCase();
-        int left = 0;
-        int right = cleanedStr.length() - 1;
-        while (left < right) {
-            if (cleanedStr.charAt(left) != cleanedStr.charAt(right)) {
-                return false;
-            }
-            left++;
-            right--;
+interface PalindromeStrategy {
+    boolean isPalindrome(String s);
+}
+
+class StackStrategy implements PalindromeStrategy {
+    public boolean isPalindrome(String s) {
+        Stack<Character> stack = new Stack<>();
+        for (char c : s.toCharArray()) stack.push(c);
+
+        for (char c : s.toCharArray()) {
+            if (c != stack.pop()) return false;
         }
         return true;
     }
 }
 
-public class Main {
-    public static void main(String[] args){
+class DequeStrategy implements PalindromeStrategy {
+    public boolean isPalindrome(String s) {
+        Deque<Character> deque = new ArrayDeque<>();
+        for (char c : s.toCharArray()) deque.add(c);
 
-        PalindromeChecker p = new PalindromeChecker();
-        String input = "A maN a pLan a CANal PANAma";
-        System.out.println("Is Palindrome? : " + p.PalindromeCheck(input));
+        while (deque.size() > 1) {
+            if (deque.pollFirst() != deque.pollLast()) return false;
+        }
+        return true;
+    }
+}
+
+class PalindromeChecker {
+    private PalindromeStrategy strategy;
+
+    PalindromeChecker(PalindromeStrategy strategy) {
+        this.strategy = strategy;
+    }
+
+    void check(String s) {
+        System.out.println(s + " → " + (strategy.isPalindrome(s) ? "Palindrome" : "Not a Palindrome"));
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        PalindromeChecker checker = new PalindromeChecker(new StackStrategy());
+        System.out.println("Stack: ");
+        checker.check("racecar");
+        checker.check("hello");
+
+        checker = new PalindromeChecker(new DequeStrategy());
+        System.out.println("Deque: ");
+        checker.check("madam");
+        checker.check("world");
     }
 }
